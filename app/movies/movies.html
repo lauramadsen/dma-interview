@@ -1,0 +1,37 @@
+
+<h1>{{header}}</h1>
+<div class="row center">
+  <form name="searchForm" class="searchForm">
+    <input type="text" class="" placeholder="Search" ng-model="search" ng-change="filterSearch()">
+  </form>
+</div>
+<hr>
+<div class="row">
+  <p class="pull-left" ng-bind="movieCount"></p>
+  <p class="pull-right">Sort By
+    <select ng-change="resetSortDir()" ng-model="sortBy">
+      <option value="date">Date</option>
+      <option value="title">Name</option>
+    </select>
+    <span ng-click="reverseSort(false)" ng-show="reverse" class="glyphicon glyphicon-chevron-up"></span>
+    <span ng-click="reverseSort(true)" ng-hide="reverse" class="glyphicon glyphicon-chevron-down"></span>
+  </p>
+</div>
+</hr>
+<div class="row">
+  <ul class="movies">
+    <li ng-repeat="movie in currentMovies | orderBy: sortBy" ng-hide="movie.searchRemove">
+      <img height="292" width="195" src="{{movie.image}}" alt="{{movie.title}}" />
+      <h3>{{movie.title}}</h3>
+      <span class="label label-default">{{movie.rating | uppercase}}</span>
+      <br><br>
+      <button class="btn btn-default">Add to Watchlist</button>
+      <p>Release Date: {{movie.date | date: longDate}}</p>
+      <p>Run Time: {{movie.run_time}}</p>
+    </li>
+  </ul>
+</div>
+<div class="row center">
+  <button ng-click="previousPage()" ng-show="hasPreviousPage">Previous</button>
+  <button ng-click="nextPage()" ng-show="hasNextPage">Next</button>
+</div>
